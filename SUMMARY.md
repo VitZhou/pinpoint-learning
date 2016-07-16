@@ -2,7 +2,7 @@
 
 * [简介](profile/index.md)
 * [设计](design/index.md)
-	* [设计](design/dapper.md)
+	* [Dapper](design/dapper.md)
 * [快速入门](quickStart/index.md)
 	* [安装](quickStart/install.md)
 	* [接入](quickStart/access.md)
