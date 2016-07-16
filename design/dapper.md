@@ -1,5 +1,7 @@
 Dapper
 ======
+==原文出处： [Benjamin H. Sigelman, Luiz Andr´e Barroso](http://research.google.com/pubs/pub36356.html) 等   译文出处：[bigbully](http://bigbully.github.io/Dapper-translation/)==
+
 **概述**
 
     当代的互联网的服务，通常都是用复杂的、大规模分布式集群来实现的。互联网应用构建在不同的软件模块集上，这些软件模块，有可能是由不同的团队开发、可能使用不同的编程语言来实现、有可能布在了几千台服务器，横跨多个不同的数据中心。因此，就需要一些可以帮助理解系统行为、用于分析性能问题的工具。
