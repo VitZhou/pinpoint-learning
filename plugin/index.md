@@ -22,12 +22,12 @@ Pinpoint插件由**TraceMetadataProvider**和**ProfilerPlugin**的实现组成�
 
 [这里](https://github.com/naver/pinpoint-plugin-template) 是一个插件模板,你可以使用此模板创建你自己的插件
 
-1. TraceMetadataProvider
+######TraceMetadataProvider
 TraceMetadataProvider的实现提供**ServiceTypes**和**AnnotationKeys**
 
-	1. ServiceType
-        每个Span和SpanEvent都有一个ServiceType.ServiceType表示跟踪方法属于哪一个库,以及Span和SpanEvent如何处理跟踪的.
-        下面这个表显示了ServiceType的属性
+1. ServiceType
+    每个Span和SpanEvent都有一个ServiceType.ServiceType表示跟踪方法属于哪一个库,以及Span和SpanEvent如何处理跟踪的.
+    下面这个表显示了ServiceType的属性
 
     | 属性 | 描述 |
     |--|--|
@@ -36,7 +36,7 @@ TraceMetadataProvider的实现提供**ServiceTypes**和**AnnotationKeys**
     | desc | 描述 |
     | properties | 属性 |
 
-        ServiceTpe code的值需要跟相应的类型匹配，下面表格是它的类别对应的code值范围
+    ServiceTpe code的值需要跟相应的类型匹配，下面表格是它的类别对应的code值范围
 
     | 类别 | 范围 |
     |--|--|
@@ -47,7 +47,7 @@ TraceMetadataProvider的实现提供**ServiceTypes**和**AnnotationKeys**
     | RPC Client | 9000 ~ 9999 |
     | Others | 5000 ~ 7999 |
 
-        ServiceType的code值必须是唯一的，所以如果你写的插件想要开源共享,那么你需要联系Pinpoint的开发小组,让其分配code.如果你的插件值是自己用，你可以从以下表格中自由选择一个值
+    ServiceType的code值必须是唯一的，所以如果你写的插件想要开源共享,那么你需要联系Pinpoint的开发小组,让其分配code.如果你的插件值是自己用，你可以从以下表格中自由选择一个值
 
     | 类别 | 范围 |
     |--|--|
@@ -57,7 +57,7 @@ TraceMetadataProvider的实现提供**ServiceTypes**和**AnnotationKeys**
     | RPC Client | 9900 ~ 9999 |
     | Others | 75000 ~ 7999 |
 
-        ServiceType也可以有以下属性
+    ServiceType也可以有以下属性
 
     | 属性 | 描述 |
     |--|--|
@@ -66,7 +66,7 @@ TraceMetadataProvider的实现提供**ServiceTypes**和**AnnotationKeys**
     | RECORD_STATISTICS | Pinpoint Collector应该统计Span或者SpanEvent的实行时间 |
 
     1. AnnotationKey
-        你可以在Span或者SpanEvent通过注解记录更多的信息,一个注解是一个K-V键值对,其中k是**AnnotationKey**类型,V是基础类型,字符串或者字节数组. 这里是一些预定义的**AnnotationKey**的常用注解类型,如果有需要你也在**TraceMetadataProvider**中定义你自己需要的类型
+    你可以在Span或者SpanEvent通过注解记录更多的信息,一个注解是一个K-V键值对,其中k是**AnnotationKey**类型,V是基础类型,字符串或者字节数组. 这里是一些预定义的**AnnotationKey**的常用注解类型,如果有需要你也在**TraceMetadataProvider**中定义你自己需要的类型
 
     | 属性 | 描述 |
     |--|--|
@@ -74,9 +74,9 @@ TraceMetadataProvider的实现提供**ServiceTypes**和**AnnotationKeys**
     | code | AnnotationKey的int类型的code,必须唯一 |
     | properties | 属性 |
 
-        如果你的开源插件中需要添加一个新的**AnnotationKey**,你需要联系**Pinpoint**的开发小组,让其分配**AnnotationKey code**.如果你的插件只是自己用,你可以从900到999之间自由选择一个code
+    如果你的开源插件中需要添加一个新的**AnnotationKey**,你需要联系**Pinpoint**的开发小组,让其分配**AnnotationKey code**.如果你的插件只是自己用,你可以从900到999之间自由选择一个code
 
-        下面这个表格显示的是**AnnotationKey**的属性
+    下面这个表格显示的是**AnnotationKey**的属性
 
     | 属性 | 描述 |
     |--|--|
@@ -84,29 +84,31 @@ TraceMetadataProvider的实现提供**ServiceTypes**和**AnnotationKeys**
     | ERROR_API_METADATA | 这属性表示插件不适用 |
 
     1. 例子
-        你可以在[这里](https://github.com/naver/pinpoint-plugin-sample/blob/master/plugin/src/main/java/com/navercorp/pinpoint/plugin/sample/SampleTraceMetadataProvider.java)找到==TraceMetadataProvider==的例子
-        你也可能通过ServiceType获取AnnotationKeyMatcher
-        ```java
-        TraceMetadata.addServiceType(ServiceType, AnnotationKeyMatcher)
-        ```
-        当ServiceType的Span或者SpanEvent显示在事物调用树中，你可以像上面代码一样通过一个AnnotationKeyMatcher匹配到表示在调用树种显示的注解（即：属性是VIEW_IN_RECORD_SET的AnnotationKey）
+    你可以在[这里](https://github.com/naver/pinpoint-plugin-sample/blob/master/plugin/src/main/java/com/navercorp/pinpoint/plugin/sample/SampleTraceMetadataProvider.java)找到==TraceMetadataProvider==的例子
+    你也可能通过ServiceType获取AnnotationKeyMatcher
 
-1. 探查器插件
+    ```java
+    TraceMetadata.addServiceType(ServiceType, AnnotationKeyMatcher)
+    ```
+
+    当ServiceType的Span或者SpanEvent显示在事物调用树中，你可以像上面代码一样通过一个AnnotationKeyMatcher匹配到表示在调用树种显示的注解（即：属性是VIEW_IN_RECORD_SET的AnnotationKey）
+
+	1. 探查器插件
     探查器通过修改目标类库收集跟踪数据
     探查器的工作流程如以下步骤：
 
-    1. JVM启动时,agent启动
-    1. Agent加载当前插件目录下的所有插件
-    1. Agent调用每个已经加载的插件的ProfilerPlugin.setup(ProfilerPluginSetupContext)方法
-    1. 在Setup方法中，会注册一个回调来转换插件定义的需要转换的类
-    1. 目标应用启动
-    1. 每当一个类加载时,Agent会查看这个类是否注册了TransformerCallback回调
-    1. 如果注册了TransformerCallback,Agent会调用==doInTransform==方法
-    1. TransformerCallback会修改目标类的字节码（添加拦截,添加属性等）
-    1. 修改后的字节码会返回给JVM,JVM加载这个修改后返回的字节码类
-    1. 继续执行应用
-    1. 当修改的方法被调用时,在方法的前和后注入拦截器
-    1. 拦截器记录跟踪数据
+        1. JVM启动时,agent启动
+        1. Agent加载当前插件目录下的所有插件
+        1. Agent调用每个已经加载的插件的ProfilerPlugin.setup(ProfilerPluginSetupContext)方法
+        1. 在Setup方法中，会注册一个回调来转换插件定义的需要转换的类
+        1. 目标应用启动
+        1. 每当一个类加载时,Agent会查看这个类是否注册了TransformerCallback回调
+        1. 如果注册了TransformerCallback,Agent会调用==doInTransform==方法
+        1. TransformerCallback会修改目标类的字节码（添加拦截,添加属性等）
+        1. 修改后的字节码会返回给JVM,JVM加载这个修改后返回的字节码类
+        1. 继续执行应用
+        1. 当修改的方法被调用时,在方法的前和后注入拦截器
+        1. 拦截器记录跟踪数据
 
     重点总结:
         - 搞清楚哪些方法足够支持跟踪
@@ -128,16 +130,16 @@ TraceMetadataProvider的实现提供**ServiceTypes**和**AnnotationKeys**
         - 传递事务
         如果一个请求是来自其他Agent的跟踪节点,这个事务已经存在一个traceId;那么你必须将以下的数据记录到span中(通常情况下这些数据都是封装在**request message**中由一个节点发出)
 
-        | 名字 | 描述 |
-        |--|--|
-        | transactionId | 事务id |
-        | parentSpanId | 前一个节点的SpanID |
-        | parentApplicationName | 前一个应用名 |
-        | parentApplicationType | 前一个应用类型 |
-        | rpc | 程序名(可选) |
-        | endPoint | 服务端地址（当前节点） |
-        | remoteAddr | 客户端地址 |
-        | acceptorHost | 客户端使用的服务端地址 |
+    | 名字 | 描述 |
+    |--|--|
+    | transactionId | 事务id |
+    | parentSpanId | 前一个节点的SpanID |
+    | parentApplicationName | 前一个应用名 |
+    | parentApplicationType | 前一个应用类型 |
+    | rpc | 程序名(可选) |
+    | endPoint | 服务端地址（当前节点） |
+    | remoteAddr | 客户端地址 |
+    | acceptorHost | 客户端使用的服务端地址 |
 
         Pinpoint通过**acceptorHost**来查找两个节点之间的**调用-被调用**关系，通常**acceptorHost**和**endPoint**是相同的.但是，有的时候客户端发送请求的地址和服务端接收到请求的地址不同（比如代理）,这种情况你必须记录客户端发送请求的实际地址来记录**acceptorHost**,一般情况下，客户端插件会将地址与跟其他的事务信息一样添加在**request message**中
 
@@ -152,24 +154,25 @@ TraceMetadataProvider的实现提供**ServiceTypes**和**AnnotationKeys**
         1. 调用远程节点的方法
         拦截调用远程节点的方法所需要记录的数据如下
 
-        | 名字 | 描述 |
-        |--|--|
-        | endPoint | 目标服务器地址 |
-        | destinationId | 目标节点的逻辑名 |
-        | rpc | 调用目标的程序名（可选） |
-        | nextSpanId | 下一个节点将会使用的SpanId（如果下一个节点是可以通过Pinpoint跟踪的） |
+    | 名字 | 描述 |
+    |--|--|
+    | endPoint | 目标服务器地址 |
+    | destinationId | 目标节点的逻辑名 |
+    | rpc | 调用目标的程序名（可选） |
+    | nextSpanId | 下一个节点将会使用的SpanId（如果下一个节点是可以通过Pinpoint跟踪的） |
 
-        下一个节点是否可以**traceable**，将会影响拦截器的实现.**traceable**在这里是指的可行性,例如.一个Http客户端的下一个节点是Http服务端,Pinpoint不跟着所有的Http服务,但是如果它已经有了Http服务插件，那么它就可以**traceable**的。另外MySql JDBC的下一个节点是Mysql服务器的话就是不**traceable**的
+    	下一个节点是否可以**traceable**，将会影响拦截器的实现.**traceable**在这里是指的可行性,例如.一个Http客户端的下一个节点是Http服务端,Pinpoint不跟着所有的Http服务,但是如果它已经有了Http服务插件，那么它就可以**traceable**的。另外MySql JDBC的下一个节点是Mysql服务器的话就是不**traceable**的
 
-        - 如果下一个节点是**traceable**
-            如果下一个节点是**traceable**的,那么拦截器必须传递以下数据到下一个节点.怎样传递是跟他们之间的通信协议相关的，在最差的情况下可能无法传递它们
-        | 名字 | 描述 |
-        |--|--|
-        | transactionId | 事务id |
-        | parentApplicationName | 当前节点的应用名 |
-        | parentApplicationType | 当前节点的应用类型 |
-        | parentSpanId | 当前节点的SpanId |
-        | nextSpanId | 下一个节点将会使用的SpanId |
+    	- 如果下一个节点是**traceable**
+   	 	如果下一个节点是**traceable**的,那么拦截器必须传递以下数据到下一个节点.怎样传递是跟他们之间的通信协议相关的，在最差的情况下可能无法传递它们
+
+    | 名字 | 描述 |
+    |--|--|
+    | transactionId | 事务id |
+    | parentApplicationName | 当前节点的应用名 |
+    | parentApplicationType | 当前节点的应用类型 |
+    | parentSpanId | 当前节点的SpanId |
+    | nextSpanId | 下一个节点将会使用的SpanId |
 
         Pinpoint通过匹配客户端的**destinationId**和服务端的**acceptorHost**来查找(调用-被调用)关系,因此客户端插件记录的**destinationId**和服务端插件记录的**acceptorHost**要相等。如果客户端本身无法获取该值的话，服务端需要把值传递过去
         拦截器记录的**ServiceType**必须是prc类型的
@@ -178,7 +181,7 @@ TraceMetadataProvider的实现提供**ServiceTypes**和**AnnotationKeys**
         如果下一个节点是非**traceable**的,那么你的**ServiceType**就必须有**TERMINAL**属性.
         如果你想记录**destinationId**，那它也同时需要有**INCLUDE_DESTINATION_ID**属性，如果你记录了**destinationId**，Server Map会显示每一个**destinationId**,即使他们有相同的**endPoint**
 
-            另外,如果**ServiceType**的类型必须是**DB**或者**Cache**，那么你无须关注它们，因为任何客户端插件在跟踪非**traceable**服务的时候会可以使用它们。**DB**和**Cache**唯一的区别是响应时间的不同（**Cache**的响应时间更短）
+        另外,如果**ServiceType**的类型必须是**DB**或者**Cache**，那么你无须关注它们，因为任何客户端插件在跟踪非**traceable**服务的时候会可以使用它们。**DB**和**Cache**唯一的区别是响应时间的不同（**Cache**的响应时间更短）
 
         1. 异步task
         异步task是指除了起始线程以外的线程运行的任务.如果你想跟踪异步task,你需要创建两种拦截方法
