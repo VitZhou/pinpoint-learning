@@ -30,7 +30,7 @@ TraceMetadataProvider的实现提供**ServiceTypes**和**AnnotationKeys**
         下面这个表显示了ServiceType的属性
 
     | 属性 | 描述 |
-    |--------|--------|
+    |--|--|
     |   name     |    ServiceType的名称，必须唯一    |
     |   code     |    ServiceType的code，必须唯一    |
     |   desc     |    描述    |
@@ -39,7 +39,7 @@ TraceMetadataProvider的实现提供**ServiceTypes**和**AnnotationKeys**
         ServiceTpe code的值需要跟相应的类型匹配，下面表格是它的类别对应的code值范围
 
     | 类别 | 范围 |
-    |--------|--------|
+    |--|--|
     |   Internal Use     |    0 ~ 999    |
     |   Server     |    1000 ~ 1999    |
     |   DB Client     |    2000 ~ 2999    |
@@ -50,7 +50,7 @@ TraceMetadataProvider的实现提供**ServiceTypes**和**AnnotationKeys**
         ServiceType的code值必须是唯一的，所以如果你写的插件想要开源共享,那么你需要联系Pinpoint的开发小组,让其分配code.如果你的插件值是自己用，你可以从以下表格中自由选择一个值
 
     | 类别 | 范围 |
-    |--------|--------|
+    |--|--|
     |   Server     |    1900 ~ 1999    |
     |   DB Client     |    2900 ~ 2999    |
     |   Cache Client     |    8900 ~ 8999    |
@@ -60,7 +60,7 @@ TraceMetadataProvider的实现提供**ServiceTypes**和**AnnotationKeys**
         ServiceType也可以有以下属性
 
     | 属性 | 描述 |
-    |--------|--------|
+    |--|--|
     |   TERMINAL     |    Span或者SpanEvent调用一个远程节点,但是这个目标节点并不是Pinpoint可追踪的  |
     |  INCLUDE_DESTINATION_ID     |    Span或者SpanEvent记录的目的地ID和远程服务器是不可以追踪的    |
     |   RECORD_STATISTICS     |    Pinpoint Collector应该统计Span或者SpanEvent的实行时间    |
@@ -69,7 +69,7 @@ TraceMetadataProvider的实现提供**ServiceTypes**和**AnnotationKeys**
         你可以在Span或者SpanEvent通过注解记录更多的信息,一个注解是一个K-V键值对,其中k是**AnnotationKey**类型,V是基础类型,字符串或者字节数组. 这里是一些预定义的**AnnotationKey**的常用注解类型,如果有需要你也在**TraceMetadataProvider**中定义你自己需要的类型
 
     | 属性 | 描述 |
-    |--------|--------|
+    |--|--|
     |   name     |    AnnotationKey的名称  |
     |  code     |    AnnotationKey的int类型的code,必须唯一    |
     |   properties     |    属性    |
@@ -79,7 +79,7 @@ TraceMetadataProvider的实现提供**ServiceTypes**和**AnnotationKeys**
         下面这个表格显示的是**AnnotationKey**的属性
 
     | 属性 | 描述 |
-    |--------|--------|
+    |--|--|
     |   VIEW_IN_RECORD_SET     |   在调用树中显示的注解  |
     |  ERROR_API_METADATA     |    这属性表示插件不适用    |
 
@@ -129,7 +129,7 @@ TraceMetadataProvider的实现提供**ServiceTypes**和**AnnotationKeys**
         如果一个请求是来自其他Agent的跟踪节点,这个事务已经存在一个traceId;那么你必须将以下的数据记录到span中(通常情况下这些数据都是封装在**request message**中由一个节点发出)
 
         | 名字 | 描述 |
-        |--------|--------|
+        |--|--|
         |   transactionId     |    事务id  |
         |  parentSpanId     |    前一个节点的SpanID    |
         |   parentApplicationName     |    前一个应用名    |
@@ -153,7 +153,7 @@ TraceMetadataProvider的实现提供**ServiceTypes**和**AnnotationKeys**
         拦截调用远程节点的方法所需要记录的数据如下
 
         | 名字 | 描述 |
-        |--------|--------|
+        |--|--|
         |   endPoint     |    目标服务器地址  |
         |  destinationId     |    目标节点的逻辑名    |
         |   rpc     |    调用目标的程序名（可选）   |
@@ -164,7 +164,7 @@ TraceMetadataProvider的实现提供**ServiceTypes**和**AnnotationKeys**
         - 如果下一个节点是**traceable**
             如果下一个节点是**traceable**的,那么拦截器必须传递以下数据到下一个节点.怎样传递是跟他们之间的通信协议相关的，在最差的情况下可能无法传递它们
         | 名字 | 描述 |
-        |--------|--------|
+        |--|--|
         |   transactionId     |    事务id  |
         |  parentApplicationName     |    当前节点的应用名    |
         |   parentApplicationType     |    当前节点的应用类型   |
