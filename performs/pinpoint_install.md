@@ -22,15 +22,18 @@ pinpoint安装文档翻译,[原文地址](https://github.com/naver/pinpoint/blob
     mvn install -Dmaven.test.skip=true
     ```
 
+
 1. Pinpoint Collector
 	- 将pinpoint-collector-$VERSION.war部署到一个web容器
 	- 配置pinpoint-collector.properties, hbase.properties.
 	- 启动容器
 
+
 1. Pinpoint Web
 	-  将pinpoint-web-$VERSION.war部署到一个web容器的ROOT应用
 	-  配置pinpoint-web.properties, hbase.properties.
 	-  启动容器
+
 
 1. Pinpoint Agent
 	- 拉取或者移动pinpoint-agent/到合适的位置（$AGENT_PATH）
