@@ -8,6 +8,8 @@
 	* [接入](quickStart/access.md)
 * [Web界面使用](use/index.md)
 * [集群安装](performs/index.md)
+	* [安装流程](performs/process.md)
+	* [官网文档翻译](performs/pinpoint_install.md)
 * [插件开发](plugin/index.md)
 * [告警功能](alarm/index.md)
 
