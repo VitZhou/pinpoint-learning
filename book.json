@@ -1,0 +1,54 @@
+{
+  "author": "Sky Ao <aoxiaojian@gmail.cn>",
+  "author": "herryZ <zsh989163@163.com>",
+  "description": "java测试是一个庞大的体系,这里整理了TDD,BDD所需要的一些工具，框架(JUnit4,Assertj,Mockito,PowerMock,h2,DbUnit,Cucumber等)",
+  "extension": null,
+  "generator": "site",
+  "sidebar": {
+    "herryZ@gitbook": "https://henryZ.gitbooks.io"
+  },
+  "output": null,
+  "pdf": {
+    "fontSize": 12,
+    "footerTemplate": null,
+    "headerTemplate": null,
+    "margin": {
+      "bottom": 36,
+      "left": 62,
+      "right": 62,
+      "top": 36
+    },
+    "pageNumbers": false,
+    "paperSize": "a4"
+  },
+  "title": "Java测试学习笔记",
+  "variables": {
+  },
+  "plugins": [
+    "donate",
+    "toggle-chapters",
+    "splitter",
+    "toc",
+    "emphasize",
+    "tbfed-pagefooter"
+  ],
+  "pluginsConfig": {
+    "donate": {
+      "wechat": "https://muf.gitbooks.io/java/content/img/wechat.png",
+      "alipay": "https://muf.gitbooks.io/java/content/img/alipay.png",
+      "title": "",
+      "button": "赏",
+      "alipayText": "支付宝打赏",
+      "wechatText": "微信打赏"
+    },
+    "toc": {
+      "addClass": true,
+      "className": "toc"
+    },
+    "tbfed-pagefooter": {
+      "copyright":"Copyright &copy www.gitbook.com/@herryZ 2016",
+      "modify_label": "该文件修订时间：",
+      "modify_format": "YYYY-MM-DD HH:mm:ss"
+    }
+  }
+}
